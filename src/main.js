@@ -2,7 +2,7 @@
 // https://github.com/zloirock/core-js/blob/master/docs/2019-03-19-core-js-3-babel-and-a-look-into-the-future.md#babelpolyfill
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
-
+import axios from './utils/request'
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -22,7 +22,7 @@ import 'lib-flexible/flexible.js'
 // filters
 import './filters'
 Vue.config.productionTip = false
-
+Vue.prototype.$http=axios
 new Vue({
   el: '#app',
   router,

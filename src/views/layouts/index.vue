@@ -22,16 +22,37 @@ export default {
         {
           title: '首页',
           to: {
-            name: 'Home'
+            name: 'home'
           },
           icon: 'home-o'
         },
         {
-          title: '关于我',
+          title: '课程',
           to: {
-            name: 'About'
+            name: 'course'
           },
           icon: 'user-o'
+        },
+        {
+          title: '咨询',
+          to: {
+            name: 'advisory'
+          },
+          icon: 'orders-o'
+        },
+         {
+          title: '图书',
+          to: {
+            name: 'books'
+          },
+          icon: 'bar-chart-o'
+        },
+         {
+          title: '我的',
+          to: {
+            name: 'my'
+          },
+          icon: 'user-circle-o'
         }
       ]
     }
