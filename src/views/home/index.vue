@@ -4,7 +4,7 @@
     <div class="warpper">
       <h1 class="demo-home__title"><span> VUE H5开发模板</span></h1>
       <h2 class="demo-home__desc">
-        A vue h5 template with Vant UI
+        我是最牛逼的
       </h2>
     </div>
     <van-cell icon="success" v-for="item in list" :key="item" :title="item" />
