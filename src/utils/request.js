@@ -1,4 +1,4 @@
-/* import axios from 'axios'
+import axios from 'axios'
 import store from '@/store'
 import { Toast } from 'vant'
 // 根据环境不同引入不同api地址
@@ -56,8 +56,8 @@ service.interceptors.response.use(
 )
 
 export default service
- */
-import axios from 'axios'
+
+/* import axios from 'axios'
 
 // 设置axios的基地址【面试题】
 // 每次diaoy个接口时都要写上完整的地址，每个接口的地址前面部分是相同的，on
@@ -87,4 +87,4 @@ axios.interceptors.response.use(function (response) {
 
 
 //   导出
-export default axios;
+export default axios; */
