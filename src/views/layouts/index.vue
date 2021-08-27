@@ -40,14 +40,14 @@ export default {
           },
           icon: 'orders-o'
         },
-         {
+        {
           title: '图书',
           to: {
             name: 'books'
           },
           icon: 'bar-chart-o'
         },
-         {
+        {
           title: '我的',
           to: {
             name: 'my'

@@ -52,7 +52,7 @@ export const constantRouterMap = [
         path: '/my',
         name: 'my',
         component: () => import('@/views/every_time_taber/my'),
-        meta: { title: '我的', keepAlive: false }
+        meta: { title: '我的', keepAlive: false },
       } 
     ]
   },
@@ -61,5 +61,11 @@ export const constantRouterMap = [
     name: 'login',
     component: () => import('@/views/every_time_taber/login'),
     meta: { title: '登录', keepAlive: false }
+  } ,
+  {
+    path: '/personal',
+    name: 'personal',
+    component: () => import('@/views/my_son/personal'),
+    meta: { title: '个人中心', keepAlive: false }
   } 
 ]

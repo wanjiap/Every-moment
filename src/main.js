@@ -22,7 +22,7 @@ import 'lib-flexible/flexible.js'
 // filters
 import './filters'
 Vue.config.productionTip = false
-Vue.prototype.$http=axios
+/* Vue.prototype.$http=axios */
 new Vue({
   el: '#app',
   router,

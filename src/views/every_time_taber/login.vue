@@ -1,5 +1,6 @@
 <template>
     <div class="login">
+       <gos></gos>
         <div class="header">
             <h1>这里是我黑虎阿福的专场</h1>
             <h1>成龙莫如</h1>
@@ -30,7 +31,11 @@
     </div>
 </template>
 <script>
+import gos from "@/components/go"
+import { loging, phone } from '@/api/user.js'
+import { log } from 'util';
 export default {
+  components:{gos},
   data() {
     return {
       flag: true,
@@ -54,13 +59,19 @@ export default {
             this.$toast('这是密码登录还没写')
           } else {
             if (this.sms_code != '') {
-              let { data: data } = await this.$http.post('http://120.53.31.103:84/api/app/login', {
+              /* let { data: data } = await this.$http.post('/login', {
+                mobile: this.mobile,
+                sms_code: this.sms_code,
+                type: this.type,
+                client: '1'
+              }) */
+              /* console.log(data) */
+              let {data:data}=await loging({
                 mobile: this.mobile,
                 sms_code: this.sms_code,
                 type: this.type,
                 client: '1'
               })
-              console.log(data)
               if (data.code != 200) {
                 this.$toast(data.msg)
               } else {
@@ -92,11 +103,15 @@ export default {
             this.time_flag = true
           }
         }, 1000)
-        let { data: data } = await this.$http.post('http://120.53.31.103:84/api/app/smsCode', {
+        /*  let { data: data } = await this.$http.post('/smsCode', {
+          mobile: this.mobile,
+          sms_type: 'login'
+        }) */
+       let {data:data}=await phone({
           mobile: this.mobile,
           sms_type: 'login'
         })
-        console.log(data)
+        console.log(data);
         if (data.code != 200) {
           this.$toast(data.msg)
         }
