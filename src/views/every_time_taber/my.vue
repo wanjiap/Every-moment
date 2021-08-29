@@ -31,7 +31,7 @@
         </div>
         <div class="conent">
             <ul v-for="(item,index) in menusList" :key="index">
-              <li v-for="(ite,ind) in item" :key="ind">
+              <li v-for="(ite,ind) in item" :key="ind" @click="tiao(ite.url)">
                 <span><van-icon :name="ite.icon" />{{ite.name}}</span>
                 <van-icon name="arrow" />
                </li>
@@ -47,6 +47,25 @@ export default {
       data: JSON.parse(localStorage.getItem('data')) || [],
       token: JSON.parse(localStorage.getItem('token')) || ''
     }
+  },
+  methods:{
+    tiao(item){
+      let yan=this.Router()
+        if(yan){
+          this.$router.push('/'+item)
+        }else{
+          this.$router.push("/login")
+        }
+    },
+    Router(){
+       let obj=JSON.parse(localStorage.getItem("token"))
+     if(obj){
+       return true
+     }else{
+       return false
+     }
+    }
+
   },
   async created() {
     if (this.token) {

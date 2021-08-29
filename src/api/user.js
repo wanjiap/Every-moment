@@ -19,7 +19,14 @@ export function phone(arg) {
     data:arg
   })
 }
-
+// 设置用户信息
+export function uses(arg) {
+  return service({
+    url: api.User,
+    method: 'post',
+    data:arg
+  })
+}
 // 获取用户信息
 export function userinfo(params) {
   return service({
@@ -54,3 +61,12 @@ export function pagelist(params) {
     params:params
   })
 }
+// 设置密码
+export function passwor(arg) {
+  return service({
+    url: api.Password,
+    method: 'post',
+    data:arg
+  })
+}
+

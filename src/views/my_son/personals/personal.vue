@@ -4,9 +4,9 @@
         <ul>
             <li>
                 <span>头像</span>
-                 <span><img src="../../assets/img/blue.jpg" alt=""><van-icon name="arrow" /></span>
+                 <span><img src="../../../assets/img/blue.jpg" alt=""><van-icon name="arrow" /></span>
             </li>
-            <li>
+            <li @click="$router.push('/nickname')">
                 <span>昵称</span>
                 <span>{{data.data.nickname}}<van-icon name="arrow" /></span>
             </li>
@@ -14,9 +14,9 @@
                 <span>手机号</span>
                 <span>{{data.data.mobile}}<van-icon name="" /></span>
             </li>
-            <li>
+            <li @click="$router.push('/sex')">
                 <span>性别</span>
-                <span>保密<van-icon name="arrow" /></span>
+                <span>{{sex}}<van-icon name="arrow" /></span>
             </li>
              <li>
                 <span>出生日期</span>
@@ -31,12 +31,17 @@
 </template>
 <script>
 import gos from "@/components/go"
+import { uses } from '@/api/user.js'
 export default {
     components:{gos},
   data() {
     return {
-      data: JSON.parse(localStorage.getItem('data')) || []
+      data: JSON.parse(localStorage.getItem('data')) || [],
+      sex:JSON.parse(localStorage.getItem('sex')) || '保密'
     }
+  },
+  methods:{
+
   },
   created() {
     console.log(this.data)

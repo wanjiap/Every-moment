@@ -13,7 +13,7 @@
             </div>
             <div>
                 <input v-show="flag" type="text" name="" id="" placeholder="请输入短信验证码" v-model="sms_code">
-                <input v-show="!flag" type="text" name="" id="" placeholder="请输入密码">
+                <input v-show="!flag" type="text" name="" id="" placeholder="请输入密码" v-model="password">
             </div>
             <div v-show="flag">
                 <span>*未注册的手机号将自动注册</span>
@@ -44,7 +44,8 @@ export default {
       time_flag: true,
       mobile: '',
       sms_code: '',
-      type: 2
+      type: 2,
+      password:''
     }
   },
   methods: {
@@ -56,7 +57,20 @@ export default {
         let reg = /^[1][3-8]\d{9}$/
         if (reg.test(this.mobile)) {
           if (this.type == 1) {
-            this.$toast('这是密码登录还没写')
+            let {data:data}=await loging({
+                mobile: this.mobile,
+                password: this.password,
+                type: this.type,
+                client: '1'
+              })
+              if (data.code != 200) {
+                this.$toast(data.msg)
+              } else {
+                let token = data.data.remember_token
+                localStorage.setItem('token', JSON.stringify(token))
+                localStorage.setItem('data', JSON.stringify(data))
+                this.$router.push('/my')
+              }
           } else {
             if (this.sms_code != '') {
               /* let { data: data } = await this.$http.post('/login', {

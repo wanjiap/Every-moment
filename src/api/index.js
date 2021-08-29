@@ -4,7 +4,9 @@ const api = {
   UserInfo: '/userInfo',
   Banner:'/banner',
   Nav:'/nav',
-  PageList:'/recommend/appIndex'
+  PageList:'/recommend/appIndex',
+  Password:'/password',
+  User:'/user'
 }
 
 export default api
