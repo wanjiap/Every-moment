@@ -18,34 +18,96 @@
                 <span>性别</span>
                 <span>{{sex}}<van-icon name="arrow" /></span>
             </li>
-             <li>
+             <li @click="onChangeInfo('data')">
                 <span>出生日期</span>
-                <span>0<van-icon name="arrow" /></span>
+                <span>{{currentDate|formatTimer}}<van-icon name="arrow" /></span>
             </li>
-             <li>
+             <li @click="onChangeInfo('address')">
                 <span>所在城市</span>
-                <span>请选择<van-icon name="arrow" /></span>
+                <span>{{ressdi}}<van-icon name="arrow" /></span>
             </li>
         </ul>
+        <van-popup  v-model="flag" position="bottom" >
+            <div class="wrapper" @click.stop>
+                   <van-datetime-picker
+                   class="data"
+                    v-show="dataFlag"
+                    type="date"
+                    title="选择年月日"
+                    :min-date="minDate"
+                    :max-date="maxDate"
+                    @cancel="flag=false"
+                    @confirm="adddata"
+          />
+              </div>
+              <van-area v-show="addressflag" title="选择地址" :area-list="areaList" @cancel="flag=false" @confirm="addres"/>
+          </van-popup >
+          
     </div>
 </template>
 <script>
-import gos from "@/components/go"
+import { areaList } from '@vant/area-data';
+import gos from '@/components/go'
 import { uses } from '@/api/user.js'
 export default {
-    components:{gos},
+  components: { gos },
   data() {
     return {
       data: JSON.parse(localStorage.getItem('data')) || [],
-      sex:JSON.parse(localStorage.getItem('sex')) || '保密'
+      sex: JSON.parse(localStorage.getItem('sex')) || '保密',
+      minDate: new Date(1901, 1, 1),
+      maxDate: new Date(),
+      currentDate:0,
+      ressdi:'请选择',
+      dataFlag: false,
+      addressflag:false,
+      flag:false,
+      areaList
     }
   },
-  methods:{
-
+  methods: {
+    onChangeInfo(item){
+      this.flag=true
+      if(item=='data'){
+        this.dataFlag=true
+        this.addressflag=false
+      }else{
+        this.dataFlag=false
+        this.addressflag=true
+      }
+    },
+    adddata(val){
+       this.flag = false;
+       /* console.log(val.format("yyyy-MM-dd")); */
+     /*  this.requestUpdateUserInfo({ birthday: val.format("yyyy-MM-dd") }); */
+    },
+    addres(val){
+      this.flag = false;
+      this.ressdi=''
+      val.forEach(item=>[
+        this.ressdi+=item.name+','
+      ])
+      console.log(this.ressdi);
+    }
+  },
+  watch:{
   },
   created() {
     console.log(this.data)
-  }
+  },
+  filters: {
+    formatTimer: function(value) {
+      let date = new Date(value);
+      let y = date.getFullYear();
+      let MM = date.getMonth() + 1;
+      MM = MM < 10 ? "0" + MM : MM;
+      let d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      let h = date.getHours();
+      h = h < 10 ? "0" + h : h;
+      return y + "-" + MM + "-" + d ;
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -65,9 +127,9 @@ export default {
           border: 2px solid #bdcdf1;
           border-radius: 50%;
         }
-        i{
-            position: absolute;
-            right: -35px;
+        i {
+          position: absolute;
+          right: -35px;
         }
       }
     }

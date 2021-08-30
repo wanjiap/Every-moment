@@ -6,6 +6,8 @@
 import Taber from './tabers'
 /* 我的页面子级页面 */
 import My_son from './My_son'
+/* 首页页面子级页面 */
+import Page_son from './page_son'
 export const constantRouterMap = [
   {
     path: '/',
@@ -31,5 +33,6 @@ export const constantRouterMap = [
       ...Taber
     ]
   },
-  ...My_son
+  ...My_son,
+  ...Page_son
 ]

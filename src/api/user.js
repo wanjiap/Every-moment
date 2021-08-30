@@ -61,6 +61,38 @@ export function pagelist(params) {
     params:params
   })
 }
+//课程详情
+export function basis(params) {
+  return service({
+    url: api.Basis+params,
+    method: 'get',
+    params:params
+  })
+}
+//老师详情
+export function teache(params) {
+  return service({
+    url: api.Teacher+params,
+    method: 'get',
+    params:params
+  })
+}
+//老师课程
+export function teacherlist(arg) {
+  return service({
+    url: api.Teachetlist,
+    method: 'post',
+    params:arg
+  })
+}
+//老师课程详情
+export function distr(params) {
+  return service({
+    url: api.Distr+params,
+    method: 'get',
+    params:params
+  })
+}
 // 设置密码
 export function passwor(arg) {
   return service({

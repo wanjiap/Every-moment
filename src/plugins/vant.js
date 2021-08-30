@@ -1,6 +1,6 @@
 // 按需全局引入 vant组件
 import Vue from 'vue'
-import {  Grid, GridItem,Button, List, Cell, Tabbar, TabbarItem, Checkbox, CheckboxGroup, Toast, Icon, NavBar, Swipe, SwipeItem } from 'vant'
+import {  Grid, GridItem,Button, List, Cell, Tabbar, TabbarItem, Checkbox, CheckboxGroup, Toast, Icon, NavBar, Swipe, SwipeItem , DatetimePicker,Overlay,ShareSheet,Popup, Area ,Tab, Tabs} from 'vant'
 Vue.use(Button)
 Vue.use(Toast);
 Vue.use(Cell)
@@ -14,3 +14,10 @@ Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(Grid);
 Vue.use(GridItem);
+Vue.use(DatetimePicker);
+Vue.use(Overlay);
+Vue.use(ShareSheet);
+Vue.use(Popup);
+Vue.use(Area);
+Vue.use(Tab);
+Vue.use(Tabs);

@@ -26,11 +26,11 @@
             </van-grid>
         </div>
         <!-- 首页列表布局 -->
-        <div class="content">
+        <div class="content" v-if="status">
             <!-- 首页列表一级列表布局 -->
             <ul>
                 <p class="ul_son1"><span>{{pagelists[0].channel_info.name}}</span><span>更多<van-icon name="arrow" /></span></p>
-                <li v-for="(ite,ind) in pagelists[0].list" :key="ind">
+                <li v-for="(ite,ind) in pagelists[0].list" :key="ind" @click="teacher(ite)">
                     <img :src="ite.teacher_avatar" alt="">
                     <div>
                         <p>{{ite.teacher_name}}</p>
@@ -40,7 +40,7 @@
             </ul>
             <ul >
                 <p class="ul_son1"><span>{{pagelists[1].channel_info.name}}</span><span>更多<van-icon name="arrow" /></span></p>
-                <li v-for="(ite,ind) in pagelists[1].list" :key="ind">
+                <li v-for="(ite,ind) in pagelists[1].list" :key="ind" @click="dis(ite)">
                     <img :src="ite.cover_img" alt="">
                     <div>
                         <p><span v-if="ite.underlined_price!=0">劵</span>{{ite.title}}</p>
@@ -57,7 +57,7 @@
             </ul>
             <ul >
                 <p class="ul_son1"><span>{{pagelists[2].channel_info.name}}</span><span>更多<van-icon name="arrow" /></span></p>
-                <li v-for="(ite,ind) in pagelists[2].list" :key="ind">
+                <li v-for="(ite,ind) in pagelists[2].list" :key="ind"  @click="teacher(ite)">
                     <img :src="ite.teacher_avatar" alt="">
                     <div>
                         <p>{{ite.teacher_name}}</p>
@@ -69,13 +69,14 @@
     </div>
 </template>
 <script>
-import { banner, nav, pagelist } from '@/api/user.js'
+import { banner, nav, pagelist ,basis,teache} from '@/api/user.js'
 export default {
   data() {
     return {
       banners: ['banner1', 'banner2', 'banner3', 'banner4'] /* banner图数据 */,
       navs: [] /* nav数据 */,
-      pagelists: [] /* 数据列表 */
+      pagelists: [] /* 数据列表 */,
+      status:false
     }
   },
   methods: {
@@ -93,9 +94,19 @@ export default {
     /* 获取首页列表数据 */
     async getPagelist() {
       let { data: data } = await pagelist()
-      console.log(data.data[1])
       this.pagelists = data.data
-    }
+      this.status=true
+    },
+    /* 课程详情 */
+    async cour(item){
+      console.log(item);
+    },
+    async teacher(item){
+      this.$router.push("/tea_deatile?id="+item.teacher_id)
+    },
+     dis(item){
+        this.$router.push('/Course_detile?id='+item.id)
+    },
   },
   /* 生命周期调用方法 */
   created() {
