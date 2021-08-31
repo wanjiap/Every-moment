@@ -89,7 +89,8 @@ export default {
               if (data.code != 200) {
                 this.$toast(data.msg)
               } else {
-                let token = data.data.remember_token
+                let token =data.data.remember_token
+                console.log(token);
                 localStorage.setItem('token', JSON.stringify(token))
                 localStorage.setItem('data', JSON.stringify(data))
                 this.$router.push('/my')

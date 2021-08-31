@@ -10,21 +10,21 @@
                         <div class="two_1">
                             <img src="../../assets/img/blue.jpg" alt="">
                         </div>
-                        <p>{{data.data.nickname}}</p>
-                        <p><van-icon name="calendar-o" />签到</p>
+                        <p>{{userinf.nickname}}</p>
+                        <p @click.stop="qian"><van-icon name="calendar-o" />{{signinfo.is_sign == 1 ? "已签到" : "签到"}}</p>
                 </div>
             </div>
             <ul>
                 <li>
-                    <span>0</span>
+                    <span>{{minsinfo.courses}}</span>
                     <span>我的学习</span>
                 </li>
                  <li>
-                    <span>0</span>
+                    <span>{{minsinfo.oto}}</span>
                     <span>本周课时</span>
                 </li>
                  <li>
-                    <span>{{token!='' ? data.data.sex : 0}}</span>
+                    <span>{{signinfo.total_integral}}</span>
                     <span>我的积分</span>
                 </li>
             </ul>
@@ -40,11 +40,13 @@
     </div>
 </template>
 <script>
-import { userinfo } from '@/api/user.js'
+import {  wei, userinfo, mins} from '@/api/user.js'
 export default {
   data() {
     return {
-      data: JSON.parse(localStorage.getItem('data')) || [],
+      signinfo: [],
+      userinf: [],
+      minsinfo:[],
       token: JSON.parse(localStorage.getItem('token')) || ''
     }
   },
@@ -57,6 +59,21 @@ export default {
           this.$router.push("/login")
         }
     },
+   async weiz(){
+      let { data: data } = await wei()
+      console.log(data.data, 'wei')
+      this.signinfo = data.data
+    },
+     async usrin() {
+      let { data: data } = await userinfo()
+      console.log(data, 'user')
+      this.userinf = data.data
+    },
+    async minss(){
+      let {data:data}=await mins()
+      this. minsinfo=data.data
+      console.log(data,'minss');
+    },
     Router(){
        let obj=JSON.parse(localStorage.getItem("token"))
      if(obj){
@@ -64,14 +81,17 @@ export default {
      }else{
        return false
      }
+    },
+    qian(){
+      this.$router.push('/sgin')
     }
 
   },
   async created() {
     if (this.token) {
-      console.log(33)
-      let data = await userinfo({})
-      console.log(data)
+      this.weiz()
+    this.usrin(),
+    this.minss()
     }
   },
    computed: {

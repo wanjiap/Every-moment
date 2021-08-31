@@ -43,7 +43,7 @@
                 <li v-for="(ite,ind) in pagelists[1].list" :key="ind" @click="dis(ite)">
                     <img :src="ite.cover_img" alt="">
                     <div>
-                        <p><span v-if="ite.underlined_price!=0">劵</span>{{ite.title}}</p>
+                        <p><span v-if="ite.is_has_coupon">劵</span>{{ite.title}}</p>
                         <span>{{ite.sales_num}}人已报名</span>
                     </div>
                     <div>
@@ -96,6 +96,7 @@ export default {
       let { data: data } = await pagelist()
       this.pagelists = data.data
       this.status=true
+      console.log(data.data);
     },
     /* 课程详情 */
     async cour(item){
@@ -196,11 +197,11 @@ export default {
         align-items: flex-end;
         padding: 10px;
         div:nth-of-type(1) {
+          flex: 1;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           height: 70px;
-          margin-right: 70px;
           p {
             font-size: 14px;
             span {

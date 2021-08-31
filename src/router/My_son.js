@@ -34,5 +34,11 @@ export default [
         nema: 'passerword',
         component: () => import('@/views/my_son/Options/passerword'),
         meta: { title: '设置密码', keepAlive: false }
+    },
+    {
+        path: '/sgin',
+        nema: 'sgin',
+        component: () => import('@/views/my_son/sign'),
+        meta: { title: '签到', keepAlive: false }
     }
 ]

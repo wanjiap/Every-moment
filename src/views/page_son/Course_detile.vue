@@ -16,9 +16,9 @@
                     </div>
             </div>
         </div>
-        <div class="you" v-if="status">
-                <p v-if="coudata.couponList.length"><span>优惠：</span><span>领取优惠券最多可减<i>{{mex/100}}</i></span><span>领取<van-icon name="arrow" /></span></p>
-                <p><span>服务：</span><span>{{coudata.info.service[0].name}}</span><span>详情<van-icon name="arrow" /></span></p>
+        <div class="you" v-if="coudata.couponList.length || coudata.info.service.length">
+                <p v-if="coudata.couponList.length "><span>优惠：</span><span>领取优惠券最多可减<i>{{mex/100}}</i></span><span>领取<van-icon name="arrow" /></span></p>
+                <p v-if="coudata.info.service.length"><span>服务：</span><span>{{coudata.info.service[0].name}}</span><span>详情<van-icon name="arrow" /></span></p>
             </div>
             <div class="jiaoxue">
                 <p>教学团队</p>
@@ -148,7 +148,7 @@ export default {
   }
   .you {
     background: white;
-    margin: 15px 0;
+    margin-top: 15px;
     padding: 10px 15px;
     p {
       display: flex;
@@ -182,6 +182,7 @@ export default {
   .jiaoxue {
     padding: 15px;
     background: white;
+     margin-top: 15px;
     p {
       font-size: 15px;
     }

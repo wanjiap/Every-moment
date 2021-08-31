@@ -1,28 +1,36 @@
 const api = {
   /* 登录 */
-  Login: '/login',
+  Login: '/app/login',
   /* 获取验证码 */
-  Phone:'/smsCode' ,
+  Phone:'/app/smsCode' ,
   /* 个人信息 */
-  UserInfo: '/userInfo',
+  UserInfo: '/app/userInfo',
   /* banner图 */
-  Banner:'/banner',
+  Banner:'/app/banner',
   /* 导航栏 */
-  Nav:'/nav',
+  Nav:'/app/nav',
   /* 首页列表 */
-  PageList:'/recommend/appIndex',
+  PageList:'/app/recommend/appIndex',
   /* 设置密码 */
-  Password:'/password',
+  Password:'/app/password',
   /*  */
-  User:'/user',
+  User:'/app/user',
   /* 课程详情 */
-  Basis:'/courseInfo/basis_id=',
+  Basis:'/app/courseInfo/basis_id=',
   /* 老师详情 */
-  Teacher:'/teacher/',
+  Teacher:'/app/teacher/',
   /* 主讲课程 */
-  Teachetlist:'/teacher/mainCourse',
+  Teachetlist:'/app/teacher/mainCourse',
   /* 主讲课程详情 */
-  Distr:'/distribute/item/bind/'
+  Distr:'/app/distribute/item/bind/',
+  /* 好课推荐 */
+  Hao:'/integral/shop/index',
+  /* 是否签到 */
+  Wei:'/app/user/integral/isSign',
+  /* 未知 */
+  Sig:'/app/user/integral/sign',
+  /* 我的nav积分 */
+  Mine:'app/getUCenterInfo'
 }
 
 export default api

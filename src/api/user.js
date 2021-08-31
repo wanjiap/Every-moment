@@ -101,4 +101,36 @@ export function passwor(arg) {
     data:arg
   })
 }
+//好课推荐
+export function hao(params) {
+  return service({
+    url: api.Hao,
+    method: 'get',
+    params:params
+  })
+}
+//判断是否签到
+export function wei(params) {
+  return service({
+    url: api.Wei,
+    method: 'get',
+    params:params
+  })
+}
+//判断是否签到
+export function sig(arg) {
+  return service({
+    url: api.Sig,
+    method: 'post',
+    params:arg
+  })
+}
+//我的积分
+export function mins(params) {
+  return service({
+    url: api.Mine,
+    method: 'get',
+    params:params
+  })
+}
 

@@ -17,8 +17,8 @@ service.interceptors.request.use(
       message: "加载...",
        forbidClick:true,
     })
-    /* token设置 */
-    /* config.headers['Authorization']=sessionStorage.getItem("token")||'' */
+    /*  token设置  */
+     config.headers['Authorization']=' Bearer '+ JSON.parse(localStorage.getItem("token"))
     return config
   },
   error => {
