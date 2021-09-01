@@ -6,8 +6,8 @@
             <p>{{teacher_data.real_name}}</p>
         </div>
         <div class="body">
-            <van-tabs v-model="active" >
-                <van-tab title="讲师介绍">
+            <van-tabs v-model="active" @click="tiao">
+                <van-tab title="讲师介绍" >
                     <p class="jian">老师简介</p>
                     <p class="shao">{{teacher_data.introduction}}</p>
                 </van-tab>
@@ -55,12 +55,18 @@ export default {
       this.teacher_data = data.data.teacher
       /*  console.log(this.teacher_data) */
     },
+    tiao(i){
+      if(i==1){
+        this.teachlis()
+      }
+    },
     async teachlis() {
       let { data: data } = await teacherlist({ teacher_id: this.teacher_id })
       console.log(data.data.list, 888)
       this.teacher_list = data.data.list
     },
      dis(item){
+
         this.$router.push('/Course_detile?id='+item.id)
     },
   },
@@ -80,6 +86,7 @@ export default {
     img {
       width: 80px;
       height: 80px;
+      border-radius: 50%;
     }
     p {
       font-size: 16px;

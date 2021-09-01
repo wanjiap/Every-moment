@@ -55,7 +55,7 @@
                     </div>
                 </li>
             </ul>
-            <ul >
+            <ul>
                 <p class="ul_son1"><span>{{pagelists[2].channel_info.name}}</span><span>更多<van-icon name="arrow" /></span></p>
                 <li v-for="(ite,ind) in pagelists[2].list" :key="ind"  @click="teacher(ite)">
                     <img :src="ite.teacher_avatar" alt="">
@@ -102,7 +102,7 @@ export default {
     async cour(item){
       console.log(item);
     },
-    async teacher(item){
+     teacher(item){
       this.$router.push("/tea_deatile?id="+item.teacher_id)
     },
      dis(item){

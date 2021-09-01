@@ -7,6 +7,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import * as filters from './utils/index';
 
 // 设置 js中可以访问 $cdn
 import { $cdn } from '@/config'
@@ -20,7 +21,9 @@ import '@/assets/css/index.scss'
 import 'lib-flexible/flexible.js'
 
 // filters
-import './filters'
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+});
 Vue.config.productionTip = false
 /* Vue.prototype.$http=axios */
 new Vue({

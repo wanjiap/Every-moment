@@ -34,5 +34,11 @@ export const constantRouterMap = [
     ]
   },
   ...My_son,
-  ...Page_son
+  ...Page_son,
+  {
+    path: '/editl',
+    name: 'editl',
+    component: () => import('@/views/advisor_son/editl'),
+    meta: { title: '文章详情', keepAlive: false },
+  } 
 ]

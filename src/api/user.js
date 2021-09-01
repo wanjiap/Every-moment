@@ -86,13 +86,13 @@ export function teacherlist(arg) {
   })
 }
 //老师课程详情
-export function distr(params) {
+/* export function distr(params) {
   return service({
     url: api.Distr+params,
     method: 'get',
     params:params
   })
-}
+} */
 // 设置密码
 export function passwor(arg) {
   return service({
@@ -130,6 +130,54 @@ export function mins(params) {
   return service({
     url: api.Mine,
     method: 'get',
+    params:params
+  })
+}
+//日期
+export function ri(params) {
+  return service({
+    url: api.Ri,
+    method: 'get',
+    params:params
+  })
+}
+//日期
+export function ke(params) {
+  return service({
+    url: api.Ke,
+    method: 'get',
+    params:params
+  })
+}
+/* 咨询分类 */
+export function zifen(params) {
+  return service({
+    url: api.Zifen,
+    method: 'get',
+    params:params
+  })
+}
+/* 咨询列表 */
+export function zilist(params) {
+  return service({
+    url: api.Zilist,
+    method: 'post',
+    params:params
+  })
+}
+/* 咨询详情 */
+export function zidetil(params) {
+  return service({
+    url: api.Zidetail,
+    method: 'post',
+    params:params
+  })
+}
+/* 课程大纲 */
+export function keda(params) {
+  return service({
+    url: api.Keda,
+    method: 'post',
     params:params
   })
 }

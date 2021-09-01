@@ -20,7 +20,10 @@
                     :show-mark="false"
                     color="none"
                 /> -->
-                <Calender />
+                <Calender
+                :sign-dates="signedDates"
+                >
+                </Calender>
             </div>
             <van-dialog v-model="qianshow" title="签到规则" :showConfirmButton="false">
                    <div >
@@ -32,9 +35,9 @@
             </van-dialog>
         </div>
            <div class="bodys">
-                <ul>
+                <ul v-if="haolists">
                 <p class="ul_son"><span>好课推荐</span><span>更多<van-icon name="arrow" /></span></p>
-                <li v-for="(item,index) in haolists" :key="index">
+                <li v-for="(item,index) in haolists" :key="index" >
                     <img :src="item.cover_img" alt="">
                     <p>
                         <span>{{item.course_name}}</span>
@@ -43,7 +46,7 @@
                     <p>去兑换</p>
                 </li>
             </ul>
-            <ul>
+            <ul v-if="booklist">
                 <p class="ul_son"><span>热门图书</span><span>更多<van-icon name="arrow" /></span></p>
                 <li v-for="(item,index) in booklist" :key="index">
                     <img :src="item.cover_img" alt="">
@@ -61,7 +64,7 @@
 <script>
 import Calender from '@/components/Calender'
 import gos from '@/components/go'
-import { hao, wei, userinfo, sig } from '@/api/user.js'
+import { hao, wei, userinfo, sig ,ri} from '@/api/user.js'
 export default {
   components: { gos, Calender },
   data() {
@@ -71,20 +74,26 @@ export default {
       signinfo: [],
       userinf: [],
       booklist: [],
-      haolists: []
+      haolists: [],
+      signedDates:[]
     }
   },
   methods: {
     qian() {
       this.qianshow = true
     },
+    async ondate(){
+      let {data:data}=await ri()
+      this.signedDates=data.data
+      console.log( this.signedDates,'ri');
+    },
     async haolist() {
       let data = await hao({ type: 1 })
       let res = await hao({ type: 2 })
       this.haolists=data.data.data.list
       this.booklist=res.data.data.list
-      console.log(data.data.data.list[0])
-      console.log(res.data.data.list[0])
+     /*  console.log(data.data.data.list[0])
+      console.log(res.data.data.list[0]) */
     },
     async weiz() {
       let { data: data } = await wei()
@@ -92,8 +101,7 @@ export default {
       this.signinfo = data.data
       document.title = data.data.sign_rules.page_title
       if (data.data.is_sign == 2) {
-        console.log(33)
-        let { data: data } = await sig()
+        let { data: data } = await sig({data:2021-9-1})
         console.log(data, 'sig')
       }
     },
@@ -107,6 +115,7 @@ export default {
     this.weiz()
     this.haolist()
     this.usrin()
+    this.ondate()
   }
 }
 </script>

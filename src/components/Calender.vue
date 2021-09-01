@@ -42,6 +42,19 @@
 <script>
 export default {
   name: "calender",
+  props:{
+     signDates: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+  },
+  watch:{
+    signDates(val){
+
+    }
+  },
   data() {
     return {
       year: 2019, // 设置当前年份
@@ -64,6 +77,7 @@ export default {
   },
   methods: {
     getMyDate(year = false, month = false) {
+      console.log(this.signDates,'44');
       let obj; // 初始化的时间对象
       let first = []; // 第1排的数据
       let second = []; // 第2-6排的数据
@@ -134,6 +148,9 @@ export default {
         this.all.splice(0,1)
       }
     }
+  },
+  created(){
+    console.log(this.signDates,777);
   }
 };
 </script>
