@@ -181,4 +181,21 @@ export function keda(params) {
     params:params
   })
 }
+/* 领取优惠券列表*/
+export function lingyou(params) {
+  return service({
+    url: api.Linyou+params,
+    method: 'get',
+    params:params
+  })
+}
+/* 课程详情包含内容 */
+export function neirong(params) {
+  return service({
+    url: api.Neirong,
+    method: 'post',
+    params:params
+  })
+}
+
 

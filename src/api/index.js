@@ -42,7 +42,12 @@ const api = {
   /* 咨询列表 */
   Zilist:'/app/information/index',
   /* 咨询详情 */
-  Zidetail:'/app/information/detail'
+  Zidetail:'/app/information/detail',
+  /* 领取优惠券 */
+  Linyou:'/app/userGetCoupon/',
+  /* 课程详情包含内容 */
+  Neirong:'/app/sysCourseList'
+
 }
 
 export default api

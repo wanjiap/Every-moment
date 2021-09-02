@@ -28,49 +28,18 @@
         <!-- 首页列表布局 -->
         <div class="content" v-if="status">
             <!-- 首页列表一级列表布局 -->
-            <ul>
-                <p class="ul_son1"><span>{{pagelists[0].channel_info.name}}</span><span>更多<van-icon name="arrow" /></span></p>
-                <li v-for="(ite,ind) in pagelists[0].list" :key="ind" @click="teacher(ite)">
-                    <img :src="ite.teacher_avatar" alt="">
-                    <div>
-                        <p>{{ite.teacher_name}}</p>
-                        <span>{{ite.introduction}}</span>
-                    </div>
-                </li>
-            </ul>
-            <ul >
-                <p class="ul_son1"><span>{{pagelists[1].channel_info.name}}</span><span>更多<van-icon name="arrow" /></span></p>
-                <li v-for="(ite,ind) in pagelists[1].list" :key="ind" @click="dis(ite)">
-                    <img :src="ite.cover_img" alt="">
-                    <div>
-                        <p><span v-if="ite.is_has_coupon">劵</span>{{ite.title}}</p>
-                        <span>{{ite.sales_num}}人已报名</span>
-                    </div>
-                    <div>
-                        <span  v-if="ite.underlined_price==ite.price">免费</span>
-                        <p v-else>
-                            <span v-show="ite.underlined_price!=0">{{ite.underlined_price/100}}</span>
-                            <span >{{ite.price/100}}</span>
-                        </p>
-                    </div>
-                </li>
-            </ul>
-            <ul>
-                <p class="ul_son1"><span>{{pagelists[2].channel_info.name}}</span><span>更多<van-icon name="arrow" /></span></p>
-                <li v-for="(ite,ind) in pagelists[2].list" :key="ind"  @click="teacher(ite)">
-                    <img :src="ite.teacher_avatar" alt="">
-                    <div>
-                        <p>{{ite.teacher_name}}</p>
-                        <span>{{ite.introduction}}</span>
-                    </div>
-                </li>
-            </ul>
+            <teacherList :pagelists='pagelists[0]'></teacherList>
+            <keList :pagelists='pagelists[1]'></keList>
+            <teacherList :pagelists='pagelists[2]'></teacherList>
         </div>
     </div>
 </template>
 <script>
 import { banner, nav, pagelist ,basis,teache} from '@/api/user.js'
+import teacherList from '@/components/teacher_list'
+import keList from '@/components/kelist'
 export default {
+  components:{teacherList,keList},
   data() {
     return {
       banners: ['banner1', 'banner2', 'banner3', 'banner4'] /* banner图数据 */,
@@ -101,13 +70,7 @@ export default {
     /* 课程详情 */
     async cour(item){
       console.log(item);
-    },
-     teacher(item){
-      this.$router.push("/tea_deatile?id="+item.teacher_id)
-    },
-     dis(item){
-        this.$router.push('/Course_detile?id='+item.id)
-    },
+    }
   },
   /* 生命周期调用方法 */
   created() {
@@ -188,103 +151,7 @@ export default {
   }
   /* 首页列表样式 */
   .content {
-    ul:nth-of-type(2) {
-      li {
-        height: 100px;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        padding: 10px;
-        div:nth-of-type(1) {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          height: 70px;
-          p {
-            font-size: 14px;
-            span {
-              background: #e74d3d;
-              color: #fff;
-              padding: 2px;
-              border-radius: 2px;
-              margin-right: 5px;
-            }
-          }
-          span {
-            color: rgba(0, 0, 0, 0.45);
-          }
-        }
-         div:nth-of-type(2){
-             span{
-                color:#44a426;
-                font-size: 15px;
-             }
-             p{
-                 :nth-child(1){
-                     color: #999;
-                    text-decoration: line-through;
-                    font-size: 12px;
-                 }
-                 :nth-child(2){
-                     color: #ee1f1f;
-                     font-size: 16px;
-                 }
-             }
-         }
-        img {
-          width: 120px;
-          height: 70px;
-        }
-      }
-    }
     padding: 15px;
-    .ul_son1 {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-left: 3px solid #e60012;
-      padding-left: 10px;
-      margin-bottom: 15px;
-      :nth-child(1) {
-        font-size: 16px;
-      }
-      :nth-child(2) {
-        display: flex;
-        align-items: center;
-        font-size: 14px;
-        i {
-        }
-      }
-    }
-    li {
-      width: 100%;
-      height: 80px;
-      box-sizing: border-box;
-      background: white;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      padding: 15px;
-      img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
-      }
-      div {
-        p {
-          font-size: 16px;
-          margin-bottom: 5px;
-        }
-        span {
-          color: #b7b7b7;
-          font-size: 12px;
-        }
-      }
-    }
   }
 }
 </style>

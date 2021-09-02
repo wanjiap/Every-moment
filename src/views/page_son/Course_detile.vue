@@ -66,7 +66,12 @@
         </van-tab>
       </van-tabs>
       <van-tabs v-model="active" scrollspy sticky v-else>
-        <van-tab title='包含内容'>内容 {{ index }}</van-tab>
+        <van-tab title='包含内容'>
+          <div>
+            <p class="cd-title">包含内容</p>
+            <keList :pagelists='keli'></keList>
+          </div>
+        </van-tab>
         <van-tab title='课程介绍'>
           <p class="cd-title">课程介绍</p>
           <div class="cd-details" v-html="coudata.info.course_details"></div>
@@ -87,53 +92,44 @@
           </p>
         </div>
       </div>
-      <div v-else>
-        <p>优惠券</p>
-        <ul>
-          <li v-for="(item,index) in coudata.couponList" :key="index">
-            <div>
-              <p>
-                <span>{{item.discounted_price | toFixPrice(0)}}</span>
-                <font>满{{item.full_reduction | toFixPrice(0)}}可用</font>
-              </p>
-              <p v-if="item.dis_type==1">{{item.scope_type==1?'全部课程':item.scope_type==2?'指定分类':'指定课程'}}可用</p>
-              <p v-else-if="item.dis_type==4">{{item.scope_type==1?'全部约课':item.scope_type==2?'指定讲师':''}}</p>
-              <p v-else-if="item.dis_type==2">{{item.scope_type==1?'全部图书':item.scope_type==2?'指定图书':'指定图书'}}</p>
-              <p>
-                <span v-if="item.valid_type==1">自领取之日起{{item.valid_day}}天内有效</span>
-                <span v-if="item.valid_type==2">有效至：{{item.valid_start | fomartTime('yyyy.MM.dd')}} - {{item.valid_end | fomartTime('yyyy.MM.dd')}}</span>
-              </p>
-            </div>
-            <div class="l-right">{{item.is_can_get == 0? '无法领取':'立即领取'}}</div>
-          </li>
-        </ul>
-      </div>
+      <youlist @getCoupon="getCoupon" v-else :list="coudata.couponList"></youlist>
     </van-popup>
   </div>
 </template>
 <script>
-import { basis, keda } from '@/api/user.js'
+import { basis, keda, lingyou, neirong } from '@/api/user.js'
+
 import gos from '@/components/go'
+import youlist from '@/components/youlist'
+import keList from '@/components/kelist'
 import { log } from 'util'
 export default {
-  components: { gos },
+  components: { gos, youlist, keList },
   data() {
     return {
-      id: this.$route.query.id,
+      id:0,
       coudata: [],
       status: false,
       mex: 0,
       active: 0,
-      activeNames: ['1'],
+      activeNames: ['0'],
       list: [],
       show: false,
-      cid: 0
+      cid: 0,
+      keli: {
+        list: []
+      }
     }
   },
   methods: {
-    xian(i) {
+    async xian(i) {
       this.show = true
       this.cid = i
+      if (i == 1) {
+        let { data: data } = await basis(this.id)
+        this.coudata = data.data
+        console.log(11)
+      }
     },
     async detil() {
       let { data: data } = await basis(this.id)
@@ -155,15 +151,41 @@ export default {
     async teacher(item) {
       this.$router.push('/tea_deatile?id=' + item.teacher_id)
     },
+    async bao() {
+      let { data: data } = await neirong({ id: this.id })
+      this.keli.list = data.data
+    },
     async kedalis() {
       let { data: data } = await keda({ id: this.id })
       this.list = data.data
-      console.log(this.list)
+    },
+    async getCoupon(i) {
+      console.log(this.coudata.couponList[i].id)
+      let { data: data } = await lingyou(this.coudata.couponList[i].id)
+      if (data.code != 200) {
+        this.$toast(data.msg)
+      } else {
+        this.$toast.success('成功')
+        this.show = false
+      }
+    },
+     init() {
+      this.id = this.$route.query.id;
+      this.detil()
+    this.kedalis()
+    this.bao()
+    },
+  },
+  watch: {
+    $route(val, old) {
+      if (val.query.id != old.query.id) {
+        this.init();
+      }
     }
   },
   created() {
-    this.detil()
-    this.kedalis()
+    
+    this. init()
   }
 }
 </script>
