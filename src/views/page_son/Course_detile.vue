@@ -47,13 +47,18 @@
           <p class="cd-title">课程大纲</p>
           <van-collapse v-model="activeNames">
             <van-collapse-item v-for="(item,index) in list" :key="item.id" :title="index+1+'、'+item.title" name="1">
-              <p><span></span>{{item.title}}</p>
-              <div>
-                <span v-for="(ite,ind) in item.child[0].teachers" :key="ind">
-                  {{ite.teacher_name}}
-                </span>
-                <p class="zhon">{{item.child[0].start_play}}</p>-
-                <p>{{item.child[0].end_play}}</p>
+              <div v-for="(ite,ind) in item.child" :key="ind">
+                <p><span class="span"></span>
+                  <span class="tree-see" v-if="ite.is_try_see && item.course_type != 7">试看</span>
+                  <span class="huifang" v-if="(item.course_type == 2 || item.course_type == 3) && ite.play_type == 4 ">回放</span>
+                  {{ite.periods_title}}</p>
+                <div>
+                  <span v-for="(it,inde) in ite.teachers" :key="inde">
+                    {{it.teacher_name}}
+                  </span>
+                  <p class="zhon">{{item.child[0].start_play}}</p>-
+                  <p>{{item.child[0].end_play}}</p>
+                </div>
               </div>
             </van-collapse-item>
           </van-collapse>
@@ -107,7 +112,7 @@ export default {
   components: { gos, youlist, keList },
   data() {
     return {
-      id:0,
+      id: 0,
       coudata: [],
       status: false,
       mex: 0,
@@ -158,10 +163,12 @@ export default {
     async kedalis() {
       let { data: data } = await keda({ id: this.id })
       this.list = data.data
+      console.log(data.data, 77)
     },
     async getCoupon(i) {
       console.log(this.coudata.couponList[i].id)
       let { data: data } = await lingyou(this.coudata.couponList[i].id)
+      console.log(data)
       if (data.code != 200) {
         this.$toast(data.msg)
       } else {
@@ -169,23 +176,22 @@ export default {
         this.show = false
       }
     },
-     init() {
-      this.id = this.$route.query.id;
+    init() {
+      this.id = this.$route.query.id
       this.detil()
-    this.kedalis()
-    this.bao()
-    },
+      this.kedalis()
+      this.bao()
+    }
   },
   watch: {
     $route(val, old) {
       if (val.query.id != old.query.id) {
-        this.init();
+        this.init()
       }
     }
   },
   created() {
-    
-    this. init()
+    this.init()
   }
 }
 </script>
@@ -395,33 +401,43 @@ export default {
 }
 /deep/.van-collapse-item__content {
   padding: 20px 40px;
-  p {
-    display: flex;
-    align-items: center;
-    span {
-      height: 5px;
-      width: 5px;
-      background: #e60012;
-      margin-right: 10px;
-    }
-    font-size: 12px;
-    color: #595959;
-  }
   div {
-    display: flex;
-    align-items: center;
-    padding-left: 30px;
-    font-size: 12px;
-    color: #8c8c8c;
-    margin-top: 15px;
-    .zhon {
-      margin-left: 5px;
-    }
     p {
-      color: #8c8c8c;
+      display: flex;
+      align-items: center;
+      .huifang {
+        background: #ea7a2f;
+        color: white;
+        padding: 1px 5px;
+        margin-right: 10px;
+        font-size: 12x;
+        border-radius: 2px;
+      }
+      .span {
+        height: 5px;
+        width: 5px;
+        background: #e60012;
+        margin-right: 10px;
+      }
+      font-size: 12px;
+      color: #595959;
     }
-    span {
-      margin-right: 5px;
+    div {
+      display: flex;
+      align-items: center;
+      padding-left: 30px;
+      font-size: 12px;
+      color: #8c8c8c;
+      margin-top: 15px;
+      .zhon {
+        margin-left: 5px;
+      }
+      p {
+        color: #8c8c8c;
+      }
+      span {
+        margin-right: 5px;
+      }
     }
   }
 }

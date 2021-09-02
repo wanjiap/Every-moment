@@ -46,7 +46,11 @@ const api = {
   /* 领取优惠券 */
   Linyou:'/app/userGetCoupon/',
   /* 课程详情包含内容 */
-  Neirong:'/app/sysCourseList'
+  Neirong:'/app/sysCourseList',
+  /* 图书导航 */
+  Booknav:'/app/book/classify',
+  /* 图书列表 */
+  Booklist:'/app/book/list/'
 
 }
 

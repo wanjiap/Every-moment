@@ -197,5 +197,21 @@ export function neirong(params) {
     params:params
   })
 }
+/* 图书nav */
+export function booknav(params) {
+  return service({
+    url: api.Booknav,
+    method: 'get',
+    params:params
+  })
+}
+/* 图书列表 */
+export function booklist(params) {
+  return service({
+    url: api.Booklist+params.id,
+    method: 'get',
+    params:params
+  })
+}
 
 
