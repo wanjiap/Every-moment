@@ -1,23 +1,23 @@
 <template>
-    <div class="pas">
-       <gos></gos>
-        <div class="enroll">
-            <div>
-                <input type="text" name="" id="" placeholder="请输入手机号" v-model="mobile">
-                <span ><a href="javascript:;" v-show="time_flag" @click="passer">获取验证码</a></span>
-                <a class="yes" href="javascript:;" v-show="!time_flag" >获取验证码{{time}}</a>
-            </div>
-            <div>
-                <input type="text" name="" id="" placeholder="请输入验证码" v-model="sms_code">
-            </div>
-            <div>
-                <input type="text" name="" id="" placeholder="请输入密码" v-model="password">
-            </div>
-            <div class="btn">
-                <button @click="login">确定</button>
-            </div>
-        </div>
+  <div class="pas">
+    <gos></gos>
+    <div class="enroll">
+      <div>
+        <input type="text" name="" id="" placeholder="请输入手机号" v-model="mobile">
+        <span><a href="javascript:;" v-show="time_flag" @click="passer">获取验证码</a></span>
+        <a class="yes" href="javascript:;" v-show="!time_flag">获取验证码{{time}}</a>
+      </div>
+      <div>
+        <input type="text" name="" id="" placeholder="请输入验证码" v-model="sms_code">
+      </div>
+      <div>
+        <input type="text" name="" id="" placeholder="请输入密码" v-model="password">
+      </div>
+      <div class="btn">
+        <button @click="login">确定</button>
+      </div>
     </div>
+  </div>
 </template>
 <script>
 import gos from '@/components/go'
@@ -68,7 +68,7 @@ export default {
           sms_code: this.sms_code,
           password: this.password
         })
-        console.log(data);
+        console.log(data)
         if (data.code != 200) {
           this.$toast(data.msg)
         } else {

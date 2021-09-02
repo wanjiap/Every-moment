@@ -1,45 +1,45 @@
 <template>
-    <div id="dea">
-        <gos></gos>
-        <div class="header">
-            <img :src="teacher_data.avatar" alt="">
-            <p>{{teacher_data.real_name}}</p>
-        </div>
-        <div class="body">
-            <van-tabs v-model="active" @click="tiao">
-                <van-tab title="讲师介绍" >
-                    <p class="jian">老师简介</p>
-                    <p class="shao">{{teacher_data.introduction}}</p>
-                </van-tab>
-                <van-tab title="主讲课程">
-                    <div class="content">
-                        <ul >
-                            <li v-for="(ite,ind) in teacher_list" :key="ind"  @click="dis(ite)">
-                                <img :src="ite.cover_img" alt="">
-                             <div>
-                            <p><span v-if="ite.underlined_price!=0">劵</span>{{ite.title}}</p>
-                            <span>{{ite.sales_num}}人已报名</span>
-                            </div>
-                            <div>
-                            <span  v-if="ite.underlined_price==ite.price">免费</span>
-                            <p v-else>
-                               <span v-show="ite.underlined_price!=0">{{ite.underlined_price/100}}</span>
-                            <span >{{ite.price/100}}</span>
-                            </p>
-                             </div>
-                            </li>
-                        </ul>
-                    </div>
-                </van-tab>
-            </van-tabs>
-        </div>
+  <div id="dea">
+    <gos></gos>
+    <div class="header">
+      <img :src="teacher_data.avatar" alt="">
+      <p>{{teacher_data.real_name}}</p>
     </div>
+    <div class="body">
+      <van-tabs v-model="active" @click="tiao">
+        <van-tab title="讲师介绍">
+          <p class="jian">老师简介</p>
+          <p class="shao">{{teacher_data.introduction}}</p>
+        </van-tab>
+        <van-tab title="主讲课程">
+          <div class="content">
+            <ul>
+              <li v-for="(ite,ind) in teacher_list" :key="ind" @click="dis(ite)">
+                <img :src="ite.cover_img" alt="">
+                <div>
+                  <p><span v-if="ite.underlined_price!=0">劵</span>{{ite.title}}</p>
+                  <span>{{ite.sales_num}}人已报名</span>
+                </div>
+                <div>
+                  <span v-if="ite.underlined_price==ite.price">免费</span>
+                  <p v-else>
+                    <span v-show="ite.underlined_price!=0">{{ite.underlined_price/100}}</span>
+                    <span>{{ite.price/100}}</span>
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </van-tab>
+      </van-tabs>
+    </div>
+  </div>
 </template>
 <script>
-import { teache, teacherlist,basis } from '@/api/user.js'
+import { teache, teacherlist, basis } from '@/api/user.js'
 import gos from '@/components/go'
 export default {
-    components:{gos},
+  components: { gos },
   data() {
     return {
       teacher_id: this.$route.query.id,
@@ -55,8 +55,8 @@ export default {
       this.teacher_data = data.data.teacher
       /*  console.log(this.teacher_data) */
     },
-    tiao(i){
-      if(i==1){
+    tiao(i) {
+      if (i == 1) {
         this.teachlis()
       }
     },
@@ -65,10 +65,9 @@ export default {
       console.log(data.data.list, 888)
       this.teacher_list = data.data.list
     },
-     dis(item){
-
-        this.$router.push('/Course_detile?id='+item.id)
-    },
+    dis(item) {
+      this.$router.push('/Course_detile?id=' + item.id)
+    }
   },
   created() {
     this.teach()
@@ -116,12 +115,12 @@ export default {
       margin: 0 15px;
     }
     .content {
-         background: white;
+      background: white;
       ul {
-          width: 100%;
-          padding:15px 20px;
-          box-sizing: border-box;
-          overflow: hidden;
+        width: 100%;
+        padding: 15px 20px;
+        box-sizing: border-box;
+        overflow: hidden;
         li {
           height: 100px;
           width: 100%;
